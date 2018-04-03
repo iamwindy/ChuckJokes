@@ -1,4 +1,4 @@
-package com.example.haihesheng.chuckjokes;
+package com.example.haihesheng.chuckjokes.ui.main;
 
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
@@ -13,13 +13,25 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 
-public class MainActivity extends AppCompatActivity
-        implements NavigationView.OnNavigationItemSelectedListener {
+import com.example.haihesheng.chuckjokes.JokesApplication;
+import com.example.haihesheng.chuckjokes.R;
+
+import javax.inject.Inject;
+
+public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener , MainScreen {
+
+    @Inject
+    MainPresenter mainPresenter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        JokesApplication.injector.inject(this);
+
+
+
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
@@ -97,5 +109,18 @@ public class MainActivity extends AppCompatActivity
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
         return true;
+    }
+
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        mainPresenter.attachScreen(this);
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+        mainPresenter.detachScreen();
     }
 }
