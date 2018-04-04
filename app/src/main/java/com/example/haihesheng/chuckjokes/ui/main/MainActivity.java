@@ -17,6 +17,7 @@ import android.view.MenuItem;
 import com.example.haihesheng.chuckjokes.JokesApplication;
 import com.example.haihesheng.chuckjokes.R;
 import com.example.haihesheng.chuckjokes.ui.details.DetailsActivity;
+import com.example.haihesheng.chuckjokes.ui.favorites.FavoritesActivity;
 
 import javax.inject.Inject;
 
@@ -94,18 +95,10 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         // Handle navigation view item clicks here.
         int id = item.getItemId();
 
-        if (id == R.id.nav_camera) {
-            // Handle the camera action
-        } else if (id == R.id.nav_gallery) {
+        if (id == R.id.nav_main) {
 
-        } else if (id == R.id.nav_slideshow) {
-
-        } else if (id == R.id.nav_manage) {
-
-        } else if (id == R.id.nav_share) {
-
-        } else if (id == R.id.nav_send) {
-            Intent intent = new Intent(MainActivity.this, DetailsActivity.class);
+        } else if (id == R.id.nav_favorites) {
+            Intent intent = new Intent(MainActivity.this, FavoritesActivity.class);
             startActivity(intent);
         }
 

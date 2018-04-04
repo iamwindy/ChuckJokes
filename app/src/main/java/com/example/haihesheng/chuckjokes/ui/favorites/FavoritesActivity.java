@@ -1,4 +1,4 @@
-package com.example.haihesheng.chuckjokes.ui.details;
+package com.example.haihesheng.chuckjokes.ui.favorites;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -13,28 +13,25 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.Toast;
 
 import com.example.haihesheng.chuckjokes.JokesApplication;
 import com.example.haihesheng.chuckjokes.R;
-import com.example.haihesheng.chuckjokes.ui.favorites.FavoritesActivity;
 import com.example.haihesheng.chuckjokes.ui.main.MainActivity;
 
 import javax.inject.Inject;
 
 /**
- * Created by Hai on 2018-04-03.
+ * Created by Hai on 2018-04-04.
  */
 
-public class DetailsActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener , DetailsScreen{
-
+public class FavoritesActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener ,FavoritesScreen {
     @Inject
-    DetailsPresenter detailsPresenter;
+    FavoritesPresenter favoritesPresenter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_details);
+        setContentView(R.layout.activity_favorites);
 
         JokesApplication.injector.inject(this);
 
@@ -45,7 +42,7 @@ public class DetailsActivity extends AppCompatActivity implements NavigationView
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Snackbar.make(view, "Hello Details", Snackbar.LENGTH_LONG).setAction("Action", null).show();
+                Snackbar.make(view, "Hello Favorites", Snackbar.LENGTH_LONG).setAction("Action", null).show();
             }
         });
 
@@ -98,11 +95,10 @@ public class DetailsActivity extends AppCompatActivity implements NavigationView
         int id = item.getItemId();
 
         if (id == R.id.nav_main) {
-            Intent intent = new Intent(DetailsActivity.this, MainActivity.class);
+            Intent intent = new Intent(FavoritesActivity.this, MainActivity.class);
             startActivity(intent);
         } else if (id == R.id.nav_favorites) {
-            Intent intent = new Intent(DetailsActivity.this, FavoritesActivity.class);
-            startActivity(intent);
+
         }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
@@ -113,12 +109,12 @@ public class DetailsActivity extends AppCompatActivity implements NavigationView
     @Override
     protected void onStart() {
         super.onStart();
-        detailsPresenter.attachScreen(this);
+        favoritesPresenter.attachScreen(this);
     }
 
     @Override
     protected void onStop() {
         super.onStop();
-        detailsPresenter.detachScreen();
+        favoritesPresenter.detachScreen();
     }
 }

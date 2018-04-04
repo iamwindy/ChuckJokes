@@ -21,7 +21,11 @@
             </intent-filter>
         </activity>
         <activity android:name=".ui.details.DetailsActivity"
+            android:label="@string/details"
                 android:theme="@style/AppTheme.NoActionBar"/>
+        <activity android:name=".ui.favorites.FavoritesActivity"
+            android:label="@string/favorites"
+            android:theme="@style/AppTheme.NoActionBar"/>
     </application>
 
 </manifest>
