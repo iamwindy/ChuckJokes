@@ -3,6 +3,7 @@ package com.example.haihesheng.chuckjokes.ui;
 import android.content.Context;
 
 import com.example.haihesheng.chuckjokes.ui.details.DetailsPresenter;
+import com.example.haihesheng.chuckjokes.ui.favorites.FavoritesPresenter;
 import com.example.haihesheng.chuckjokes.ui.main.MainPresenter;
 
 import javax.inject.Singleton;
@@ -38,5 +39,11 @@ public class UIModule {
     @Singleton
     public DetailsPresenter provideDetailsPresenter() {
         return new DetailsPresenter();
+    }
+
+    @Provides
+    @Singleton
+    public FavoritesPresenter provideFavoritesPresenter() {
+        return new FavoritesPresenter();
     }
 }
