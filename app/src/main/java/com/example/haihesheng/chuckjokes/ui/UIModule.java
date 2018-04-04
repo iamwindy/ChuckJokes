@@ -2,6 +2,7 @@ package com.example.haihesheng.chuckjokes.ui;
 
 import android.content.Context;
 
+import com.example.haihesheng.chuckjokes.ui.details.DetailsPresenter;
 import com.example.haihesheng.chuckjokes.ui.main.MainPresenter;
 
 import javax.inject.Singleton;
@@ -30,5 +31,12 @@ public class UIModule {
     @Singleton
     public MainPresenter provideMainPresenter() {
         return new MainPresenter();
+    }
+
+
+    @Provides
+    @Singleton
+    public DetailsPresenter provideDetailsPresenter() {
+        return new DetailsPresenter();
     }
 }

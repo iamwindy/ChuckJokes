@@ -1,6 +1,7 @@
 package com.example.haihesheng.chuckjokes;
 
 import com.example.haihesheng.chuckjokes.ui.UIModule;
+import com.example.haihesheng.chuckjokes.ui.details.DetailsActivity;
 import com.example.haihesheng.chuckjokes.ui.main.MainActivity;
 
 
@@ -15,5 +16,5 @@ import dagger.Component;
 @Component(modules={UIModule.class})
 public interface ApplicationComponent {
     void inject(MainActivity mainActivity);
-
+    void inject(DetailsActivity detailsActivity);
 }
