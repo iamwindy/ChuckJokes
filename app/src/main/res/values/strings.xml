@@ -5,4 +5,10 @@
     <string name="navigation_drawer_close">Close navigation drawer</string>
 
     <string name="action_settings">Settings</string>
+    <string name="favorites">Favorites</string>
+    <string name="categories">Categories</string>
+    <string name="hello_main">Hello Main!</string>
+    <string name="hello_favorites">Hello Favorites!</string>
+    <string name="hello_details">Hello Details!</string>
+    <string name="details">Details</string>
 </resources>

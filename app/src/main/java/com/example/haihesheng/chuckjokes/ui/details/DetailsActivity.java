@@ -1,10 +1,10 @@
-package com.example.haihesheng.chuckjokes;
+package com.example.haihesheng.chuckjokes.ui.details;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
-import android.view.View;
 import android.support.design.widget.NavigationView;
+import android.support.design.widget.Snackbar;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
@@ -12,14 +12,32 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.Toast;
 
-public class MainActivity extends AppCompatActivity
-        implements NavigationView.OnNavigationItemSelectedListener {
+import com.example.haihesheng.chuckjokes.JokesApplication;
+import com.example.haihesheng.chuckjokes.R;
+import com.example.haihesheng.chuckjokes.ui.favorites.FavoritesActivity;
+import com.example.haihesheng.chuckjokes.ui.main.MainActivity;
+
+import javax.inject.Inject;
+
+/**
+ * Created by Hai on 2018-04-03.
+ */
+
+public class DetailsActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener , DetailsScreen{
+
+    @Inject
+    DetailsPresenter detailsPresenter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.activity_details);
+
+        JokesApplication.injector.inject(this);
+
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
@@ -27,19 +45,18 @@ public class MainActivity extends AppCompatActivity
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
+                Snackbar.make(view, "Hello Details", Snackbar.LENGTH_LONG).setAction("Action", null).show();
             }
         });
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
-        ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
-                this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
+        ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
         drawer.addDrawerListener(toggle);
         toggle.syncState();
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
+
     }
 
     @Override
@@ -80,22 +97,28 @@ public class MainActivity extends AppCompatActivity
         // Handle navigation view item clicks here.
         int id = item.getItemId();
 
-        if (id == R.id.nav_camera) {
-            // Handle the camera action
-        } else if (id == R.id.nav_gallery) {
-
-        } else if (id == R.id.nav_slideshow) {
-
-        } else if (id == R.id.nav_manage) {
-
-        } else if (id == R.id.nav_share) {
-
-        } else if (id == R.id.nav_send) {
-
+        if (id == R.id.nav_main) {
+            Intent intent = new Intent(DetailsActivity.this, MainActivity.class);
+            startActivity(intent);
+        } else if (id == R.id.nav_favorites) {
+            Intent intent = new Intent(DetailsActivity.this, FavoritesActivity.class);
+            startActivity(intent);
         }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
         return true;
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        detailsPresenter.attachScreen(this);
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+        detailsPresenter.detachScreen();
     }
 }
