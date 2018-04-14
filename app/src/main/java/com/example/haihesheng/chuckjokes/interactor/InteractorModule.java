@@ -12,7 +12,7 @@ import dagger.Provides;
 @Module
 public class InteractorModule {
     @Provides
-    public JokesInteractor provideArtistsInteractor() {
+    public JokesInteractor provideJokesInteractor() {
         return new JokesInteractor();
     }
 }

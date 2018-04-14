@@ -41,4 +41,16 @@ public class JokesInteractor {
             return null;
         }
     }
+
+    public long saveJoke(Joke joke){
+        return jokesRepository.saveJoke(joke);
+    }
+
+    public void deleteJoke(long id){
+        jokesRepository.deleteJoke(id);
+    }
+
+    public Joke getJoke(long id){
+        return jokesRepository.getJoke(id);
+    }
 }
