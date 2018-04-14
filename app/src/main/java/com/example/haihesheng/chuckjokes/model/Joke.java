@@ -2,16 +2,30 @@ package com.example.haihesheng.chuckjokes.model;
 
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
+import com.orm.SugarRecord;
+
+import java.io.Serializable;
 
 /**
  * Created by Hai on 2018-04-04.
  */
 
-public class Joke {
+public class Joke extends SugarRecord<Joke> implements Serializable {
+
+    public Joke(){
+
+    }
+
+    public Joke(String jokeId, String iconUrl, String url, String value){
+        this.jokeId = jokeId;
+        this.iconUrl = iconUrl;
+        this.url = url;
+        this.value = value;
+    }
 
     @SerializedName("id")
     @Expose
-    private String id;
+    private String jokeId;
 
     @SerializedName("icon_url")
     @Expose
@@ -25,12 +39,12 @@ public class Joke {
     @Expose
     private String value;
 
-    public String getId() {
-        return id;
+    public String getJokeId() {
+        return jokeId;
     }
 
-    public void setId(String id) {
-        this.id = id;
+    public void setJoke(String id) {
+        this.jokeId = id;
     }
 
     public String getIconUrl() {
