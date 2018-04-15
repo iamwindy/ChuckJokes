@@ -1,6 +1,6 @@
 package com.example.haihesheng.chuckjokes.network;
 
-import com.example.haihesheng.chuckjokes.model.JokeResult;
+import com.example.haihesheng.chuckjokes.model.Joke;
 
 import java.util.List;
 
@@ -14,7 +14,7 @@ import retrofit2.http.Query;
 
 public interface JokesApi {
     @GET("random")
-    Call<JokeResult> getJoke(@Query("category") String category);
+    Call<Joke> getJoke(@Query("category") String category);
 
     @GET("categories")
     Call<List<String>> getCategories();

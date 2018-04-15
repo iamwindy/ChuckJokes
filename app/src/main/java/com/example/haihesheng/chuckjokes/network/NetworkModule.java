@@ -24,7 +24,7 @@ public class NetworkModule {
 
     @Provides
     @Singleton
-    public JokesApi provideArtistsApi(Retrofit retrofit) {
+    public JokesApi provideJokesApi(Retrofit retrofit) {
         return retrofit.create(JokesApi.class);
     }
 }
