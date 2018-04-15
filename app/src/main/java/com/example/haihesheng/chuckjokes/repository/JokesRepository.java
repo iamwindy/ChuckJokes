@@ -1,5 +1,6 @@
 package com.example.haihesheng.chuckjokes.repository;
 
+import com.example.haihesheng.chuckjokes.JokesApplication;
 import com.example.haihesheng.chuckjokes.model.Joke;
 
 import java.util.List;
@@ -9,6 +10,9 @@ import java.util.List;
  */
 
 public class JokesRepository {
+    public JokesRepository(){
+        JokesApplication.injector.inject(this);
+    }
     public List<Joke> GetJokes(){
         return Joke.listAll(Joke.class);
     }

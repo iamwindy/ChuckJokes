@@ -1,11 +1,14 @@
 package com.example.haihesheng.chuckjokes.interactor.jokes;
 
+import android.content.Context;
 import android.util.Log;
 
 import com.example.haihesheng.chuckjokes.JokesApplication;
 import com.example.haihesheng.chuckjokes.model.Joke;
 import com.example.haihesheng.chuckjokes.network.JokesApi;
 import com.example.haihesheng.chuckjokes.repository.JokesRepository;
+
+import java.util.List;
 
 import javax.inject.Inject;
 
@@ -38,6 +41,20 @@ public class JokesInteractor {
             return response.body();
         } catch (Exception e) {
             Log.d("JokesInteractor","error on querying joke");
+            return null;
+        }
+    }
+
+    public List<String> getCategories() {
+        Call<List<String>> artistsQueryCall = jokesApi.getCategories();
+        try {
+            Response<List<String>> response = artistsQueryCall.execute();
+            if (response.code() != 200) {
+                throw new Exception("Result code is not 200");
+            }
+            return response.body();
+        } catch (Exception e) {
+            Log.d("JokesInteractor",e.toString());
             return null;
         }
     }

@@ -1,5 +1,7 @@
 package com.example.haihesheng.chuckjokes.repository;
 
+import android.content.Context;
+
 import com.example.haihesheng.chuckjokes.network.JokesApi;
 import com.example.haihesheng.chuckjokes.network.NetworkConfig;
 
@@ -14,6 +16,12 @@ import dagger.Provides;
 
 @Module
 public class RepositoryModule {
+
+    private Context context;
+
+    public RepositoryModule(Context context){
+        this.context = context;
+    }
 
     @Provides
     @Singleton

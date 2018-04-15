@@ -2,6 +2,9 @@ package com.example.haihesheng.chuckjokes;
 
 import android.app.Application;
 
+import com.example.haihesheng.chuckjokes.interactor.InteractorModule;
+import com.example.haihesheng.chuckjokes.network.NetworkModule;
+import com.example.haihesheng.chuckjokes.repository.RepositoryModule;
 import com.example.haihesheng.chuckjokes.ui.UIModule;
 
 /**
@@ -14,6 +17,11 @@ public class JokesApplication extends Application {
     @Override
     public void onCreate(){
         super.onCreate();
-        injector = DaggerApplicationComponent.builder().uIModule(new UIModule(this)).build();
+        injector = DaggerApplicationComponent.builder()
+                .uIModule(new UIModule(this))
+                .repositoryModule(new RepositoryModule(this))
+                .networkModule(new NetworkModule(this))
+                .interactorModule(new InteractorModule(this))
+                .build();
     }
 }

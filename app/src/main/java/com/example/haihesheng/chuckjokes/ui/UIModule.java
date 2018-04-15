@@ -2,9 +2,13 @@ package com.example.haihesheng.chuckjokes.ui;
 
 import android.content.Context;
 
+import com.example.haihesheng.chuckjokes.di.Network;
 import com.example.haihesheng.chuckjokes.ui.details.DetailsPresenter;
 import com.example.haihesheng.chuckjokes.ui.favorites.FavoritesPresenter;
 import com.example.haihesheng.chuckjokes.ui.main.MainPresenter;
+
+import java.util.concurrent.Executor;
+import java.util.concurrent.Executors;
 
 import javax.inject.Singleton;
 
@@ -46,4 +50,12 @@ public class UIModule {
     public FavoritesPresenter provideFavoritesPresenter() {
         return new FavoritesPresenter();
     }
+
+    @Provides
+    @Singleton
+    @Network
+    public Executor provideNetworkExecutor() {
+        return Executors.newFixedThreadPool(1);
+    }
+
 }
