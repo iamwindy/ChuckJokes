@@ -33,10 +33,11 @@ public class DetailsActivity extends AppCompatActivity implements NavigationView
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        JokesApplication.injector.inject(this);
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_details);
 
-        JokesApplication.injector.inject(this);
+
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);

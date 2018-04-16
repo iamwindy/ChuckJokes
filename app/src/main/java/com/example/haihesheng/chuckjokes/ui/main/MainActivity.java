@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
+import android.util.Log;
 import android.view.View;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -16,8 +17,9 @@ import android.view.MenuItem;
 
 import com.example.haihesheng.chuckjokes.JokesApplication;
 import com.example.haihesheng.chuckjokes.R;
-import com.example.haihesheng.chuckjokes.ui.details.DetailsActivity;
 import com.example.haihesheng.chuckjokes.ui.favorites.FavoritesActivity;
+
+import java.util.List;
 
 import javax.inject.Inject;
 
@@ -26,12 +28,15 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     @Inject
     MainPresenter mainPresenter;
 
+    private List<String> categories;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        JokesApplication.injector.inject(this);
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        JokesApplication.injector.inject(this);
+
 
 
 
@@ -55,6 +60,10 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
+
+        mainPresenter.refreshCategories();
+
+
     }
 
     @Override
@@ -118,5 +127,14 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     protected void onStop() {
         super.onStop();
         mainPresenter.detachScreen();
+    }
+
+    @Override
+    public void showJokeCategories(List<String> categories){
+        this.categories = categories;
+        if(categories != null){
+            Log.d("categories", "onCreate: " + categories.size());
+
+        }
     }
 }
