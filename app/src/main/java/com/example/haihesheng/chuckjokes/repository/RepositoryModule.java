@@ -1,5 +1,7 @@
 package com.example.haihesheng.chuckjokes.repository;
 
+import android.content.Context;
+
 import com.example.haihesheng.chuckjokes.network.JokesApi;
 import com.example.haihesheng.chuckjokes.network.NetworkConfig;
 

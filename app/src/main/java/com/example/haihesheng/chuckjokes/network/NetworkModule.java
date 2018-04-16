@@ -1,5 +1,9 @@
 package com.example.haihesheng.chuckjokes.network;
 
+import android.content.Context;
+
+import com.example.haihesheng.chuckjokes.JokesApplication;
+
 import javax.inject.Singleton;
 
 import dagger.Module;
@@ -13,6 +17,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 @Module
 public class NetworkModule {
+
     @Provides
     @Singleton
     public Retrofit provideRetrofit() {

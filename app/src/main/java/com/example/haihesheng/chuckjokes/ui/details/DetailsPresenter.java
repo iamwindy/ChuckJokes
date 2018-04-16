@@ -1,5 +1,6 @@
 package com.example.haihesheng.chuckjokes.ui.details;
 
+import com.example.haihesheng.chuckjokes.JokesApplication;
 import com.example.haihesheng.chuckjokes.ui.Presenter;
 
 /**
@@ -7,6 +8,10 @@ import com.example.haihesheng.chuckjokes.ui.Presenter;
  */
 
 public class DetailsPresenter extends Presenter<DetailsScreen> {
+    public DetailsPresenter(){
+        JokesApplication.injector.inject(this);
+    }
+
     @Override
     public void attachScreen(DetailsScreen screen){
         super.attachScreen(screen);

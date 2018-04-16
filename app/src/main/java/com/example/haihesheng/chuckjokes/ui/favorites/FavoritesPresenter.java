@@ -1,5 +1,6 @@
 package com.example.haihesheng.chuckjokes.ui.favorites;
 
+import com.example.haihesheng.chuckjokes.JokesApplication;
 import com.example.haihesheng.chuckjokes.ui.Presenter;
 import com.example.haihesheng.chuckjokes.ui.details.DetailsScreen;
 
@@ -8,6 +9,10 @@ import com.example.haihesheng.chuckjokes.ui.details.DetailsScreen;
  */
 
 public class FavoritesPresenter extends Presenter<FavoritesScreen> {
+    public FavoritesPresenter(){
+        JokesApplication.injector.inject(this);
+    }
+
     @Override
     public void attachScreen(FavoritesScreen screen){
         super.attachScreen(screen);
