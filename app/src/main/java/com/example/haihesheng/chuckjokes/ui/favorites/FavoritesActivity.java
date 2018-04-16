@@ -30,10 +30,11 @@ public class FavoritesActivity extends AppCompatActivity implements NavigationVi
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        JokesApplication.injector.inject(this);
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_favorites);
 
-        JokesApplication.injector.inject(this);
+
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);

@@ -31,6 +31,5 @@ public interface ApplicationComponent {
     void inject(FavoritesActivity favoritesActivity);
     void inject(FavoritesPresenter favoritesPresenter);
     void inject(JokesInteractor jokesInteractor);
-    void inject(NetworkModule networkModule);
     void inject(JokesRepository jokesRepository);
 }

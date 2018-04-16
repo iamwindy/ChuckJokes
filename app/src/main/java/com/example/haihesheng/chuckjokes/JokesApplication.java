@@ -19,9 +19,9 @@ public class JokesApplication extends Application {
         super.onCreate();
         injector = DaggerApplicationComponent.builder()
                 .uIModule(new UIModule(this))
-                .repositoryModule(new RepositoryModule(this))
-                .networkModule(new NetworkModule(this))
-                .interactorModule(new InteractorModule(this))
+                .repositoryModule(new RepositoryModule())
+                .networkModule(new NetworkModule())
+                .interactorModule(new InteractorModule())
                 .build();
     }
 }

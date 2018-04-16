@@ -17,11 +17,6 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 @Module
 public class NetworkModule {
-    private Context context;
-
-    public NetworkModule(Context context){
-        this.context = context;
-    }
 
     @Provides
     @Singleton

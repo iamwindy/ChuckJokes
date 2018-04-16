@@ -32,10 +32,11 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        JokesApplication.injector.inject(this);
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        JokesApplication.injector.inject(this);
+
 
 
 
@@ -133,6 +134,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         this.categories = categories;
         if(categories != null){
             Log.d("categories", "onCreate: " + categories.size());
+
         }
     }
 }

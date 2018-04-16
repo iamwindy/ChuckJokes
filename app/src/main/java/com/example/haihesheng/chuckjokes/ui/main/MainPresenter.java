@@ -24,11 +24,14 @@ public class MainPresenter extends Presenter<MainScreen> {
     Executor networkExecutor;
 
 
+    public MainPresenter(){
+        JokesApplication.injector.inject(this);
+    }
+
     @Override
     public void attachScreen(MainScreen screen){
-
         super.attachScreen(screen);
-        JokesApplication.injector.inject(this);
+
     }
 
     @Override

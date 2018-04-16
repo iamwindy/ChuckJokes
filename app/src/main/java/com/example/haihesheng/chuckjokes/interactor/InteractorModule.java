@@ -1,6 +1,7 @@
 package com.example.haihesheng.chuckjokes.interactor;
 
 import android.content.Context;
+import android.support.annotation.NonNull;
 
 import com.example.haihesheng.chuckjokes.interactor.jokes.JokesInteractor;
 
@@ -15,11 +16,6 @@ import dagger.Provides;
 
 @Module
 public class InteractorModule {
-    private Context context;
-
-    public InteractorModule(Context context){
-        this.context = context;
-    }
 
     @Provides
     @Singleton
