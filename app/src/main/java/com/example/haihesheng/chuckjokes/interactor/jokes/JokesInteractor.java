@@ -32,9 +32,9 @@ public class JokesInteractor {
     }
 
     public Joke getRandomJoke(String category) {
-        Call<Joke> artistsQueryCall = jokesApi.getJoke(category);
+        Call<Joke> queryCall = jokesApi.getJoke(category);
         try {
-            Response<Joke> response = artistsQueryCall.execute();
+            Response<Joke> response = queryCall.execute();
             if (response.code() != 200) {
                 throw new Exception("Result code is not 200");
             }
@@ -46,9 +46,9 @@ public class JokesInteractor {
     }
 
     public List<String> getCategories() {
-        Call<List<String>> artistsQueryCall = jokesApi.getCategories();
+        Call<List<String>> queryCall = jokesApi.getCategories();
         try {
-            Response<List<String>> response = artistsQueryCall.execute();
+            Response<List<String>> response = queryCall.execute();
             if (response.code() != 200) {
                 throw new Exception("Result code is not 200");
             }
