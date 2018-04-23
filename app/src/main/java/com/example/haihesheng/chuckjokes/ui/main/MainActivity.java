@@ -1,5 +1,6 @@
 package com.example.haihesheng.chuckjokes.ui.main;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
@@ -14,30 +15,37 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
+import android.widget.ListView;
 
 import com.example.haihesheng.chuckjokes.JokesApplication;
 import com.example.haihesheng.chuckjokes.R;
+import com.example.haihesheng.chuckjokes.ui.details.DetailsActivity;
 import com.example.haihesheng.chuckjokes.ui.favorites.FavoritesActivity;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.inject.Inject;
 
-public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener , MainScreen {
+public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener, MainScreen {
 
     @Inject
     MainPresenter mainPresenter;
 
+    ListView listView;
+    ArrayAdapter<String> adapter;
+
     private List<String> categories;
+
+    public static final String CATEGORY_KEY = "CATEGORY_KEY";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         JokesApplication.injector.inject(this);
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
-
-
 
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
@@ -61,8 +69,32 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
 
-        mainPresenter.refreshCategories();
+        listView = (ListView) findViewById(R.id.list_view);
 
+        mainPresenter.refreshCategories();
+        categories = new ArrayList<String>();
+        List<String> test = new ArrayList<String>();
+        test.add("asd1");
+        test.add("asd2");
+
+        adapter = new ArrayAdapter<String>(this,
+                android.R.layout.simple_list_item_1, categories);
+
+        listView.setAdapter(adapter);
+        listView.setOnItemClickListener(
+                new AdapterView.OnItemClickListener() {
+                    @Override
+                    public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                        Intent intent = new Intent(MainActivity.this, DetailsActivity.class);
+                        String selectedCategory = categories.get(i);
+                        Log.d("onItemCickListener", "onItemClick: " + selectedCategory);
+                        intent.putExtra(CATEGORY_KEY,selectedCategory);
+                        startActivity(intent);
+                    }
+
+                }
+
+        );
 
     }
 
@@ -130,10 +162,18 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     }
 
     @Override
-    public void showJokeCategories(List<String> categories){
-        this.categories = categories;
-        if(categories != null){
+    public void showJokeCategories(List<String> categories) {
+        if (categories != null) {
             Log.d("categories", "onCreate: " + categories.size());
+            this.categories.clear();
+            this.categories.add("favorites");
+            this.categories.addAll(categories);
+            listView.post(new Runnable() {
+                @Override
+                public void run() {
+                    adapter.notifyDataSetChanged();
+                }
+            });
 
         }
     }
