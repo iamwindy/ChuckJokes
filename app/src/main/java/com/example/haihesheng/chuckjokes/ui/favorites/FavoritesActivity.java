@@ -16,7 +16,10 @@ import android.view.View;
 
 import com.example.haihesheng.chuckjokes.JokesApplication;
 import com.example.haihesheng.chuckjokes.R;
+import com.example.haihesheng.chuckjokes.model.Joke;
 import com.example.haihesheng.chuckjokes.ui.main.MainActivity;
+
+import java.util.List;
 
 import javax.inject.Inject;
 
@@ -117,5 +120,10 @@ public class FavoritesActivity extends AppCompatActivity implements NavigationVi
     protected void onStop() {
         super.onStop();
         favoritesPresenter.detachScreen();
+    }
+
+    @Override
+    public void showJokes(List<Joke> joke) {
+
     }
 }

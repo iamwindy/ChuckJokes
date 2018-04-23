@@ -18,6 +18,7 @@ import android.widget.Toast;
 
 import com.example.haihesheng.chuckjokes.JokesApplication;
 import com.example.haihesheng.chuckjokes.R;
+import com.example.haihesheng.chuckjokes.model.Joke;
 import com.example.haihesheng.chuckjokes.ui.favorites.FavoritesActivity;
 import com.example.haihesheng.chuckjokes.ui.main.MainActivity;
 
@@ -27,7 +28,7 @@ import javax.inject.Inject;
  * Created by Hai on 2018-04-03.
  */
 
-public class DetailsActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener , DetailsScreen{
+public class DetailsActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener, DetailsScreen {
 
     @Inject
     DetailsPresenter detailsPresenter;
@@ -39,7 +40,6 @@ public class DetailsActivity extends AppCompatActivity implements NavigationView
         JokesApplication.injector.inject(this);
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_details);
-
 
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
@@ -63,6 +63,7 @@ public class DetailsActivity extends AppCompatActivity implements NavigationView
 
         this.selectedCategory = getIntent().getStringExtra(MainActivity.CATEGORY_KEY);
         Log.d("selectedCategory", "onCreate: " + selectedCategory);
+        detailsPresenter.getJoke(selectedCategory);
 
     }
 
@@ -127,5 +128,10 @@ public class DetailsActivity extends AppCompatActivity implements NavigationView
     protected void onStop() {
         super.onStop();
         detailsPresenter.detachScreen();
+    }
+
+    @Override
+    public void showJoke(Joke joke) {
+        Log.d("DetailsActiviy", "showJoke: " + joke.getValue());
     }
 }
