@@ -93,19 +93,22 @@ public class DetailsPresenter extends Presenter<DetailsScreen> {
         }
     }
 
-    public boolean toggleSaveJoke(){
+    public void toggleSaveJoke(){
         if(currentJokes.get(currentJokeIndex).isFavorited()){
-
-            return false;
+            JokeWrapper jokeWrapper =currentJokes.get(currentJokeIndex);
+            jokeWrapper.setFavorited(false);
+            long id = jokeWrapper.getJoke().getId();
+            if(id > 0){
+                jokesInteractor.deleteJoke(id);
+            }
         }else{
             long id = jokesInteractor.saveJoke(currentJokes.get(currentJokeIndex).getJoke());
             JokeWrapper wrapperJoke = new JokeWrapper();
             wrapperJoke.setFavorited(true);
             wrapperJoke.setJoke(jokesInteractor.getJoke(id));
             currentJokes.set(currentJokeIndex,wrapperJoke);
-            return true;
         }
-
+        screen.showJoke(currentJokes.get(currentJokeIndex));
     }
 
 }

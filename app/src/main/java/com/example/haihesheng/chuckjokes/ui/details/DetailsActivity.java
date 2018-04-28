@@ -159,9 +159,9 @@ public class DetailsActivity extends AppCompatActivity implements NavigationView
                 public void run() {
                     textView.setText(jokeWrapper.getJoke().getValue());
                     if(jokeWrapper.isFavorited()){
-                        fab.setImageDrawable(getResources().getDrawable(R.drawable.ic_favorite_black_24px));
+                        fab.setImageDrawable(getResources().getDrawable(R.drawable.ic_favorite_white_24px));
                     }else{
-                        fab.setImageDrawable(getResources().getDrawable(R.drawable.ic_favorite_border_black_24px));
+                        fab.setImageDrawable(getResources().getDrawable(R.drawable.ic_favorite_border_white_24px));
                     }
                 }
             });
