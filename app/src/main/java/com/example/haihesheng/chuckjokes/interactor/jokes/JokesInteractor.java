@@ -38,6 +38,7 @@ public class JokesInteractor {
             if (response.code() != 200) {
                 throw new Exception("Result code is not 200");
             }
+            
             return response.body();
         } catch (Exception e) {
             Log.d("JokesInteractor","error on querying joke");
@@ -59,6 +60,8 @@ public class JokesInteractor {
         }
     }
 
+    public List<Joke> getJokes(){return jokesRepository.GetJokes();}
+
     public long saveJoke(Joke joke){
         return jokesRepository.saveJoke(joke);
     }
@@ -69,5 +72,9 @@ public class JokesInteractor {
 
     public Joke getJoke(long id){
         return jokesRepository.getJoke(id);
+    }
+
+    public Joke findJokeByJokeId(String jokeId){
+        return jokesRepository.findJokeByJokeId(jokeId);
     }
 }

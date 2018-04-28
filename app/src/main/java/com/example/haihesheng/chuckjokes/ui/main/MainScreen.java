@@ -7,5 +7,5 @@ import java.util.List;
  */
 
 public interface MainScreen {
-    public void showJokeCategories(List<String> categories);
+    void showJokeCategories(List<String> categories);
 }

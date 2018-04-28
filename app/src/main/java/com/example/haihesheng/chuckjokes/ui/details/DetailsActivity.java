@@ -10,15 +10,21 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.Toast;
+import android.widget.Button;
+import android.widget.TextView;
 
 import com.example.haihesheng.chuckjokes.JokesApplication;
 import com.example.haihesheng.chuckjokes.R;
+import com.example.haihesheng.chuckjokes.model.Joke;
+import com.example.haihesheng.chuckjokes.model.JokeWrapper;
 import com.example.haihesheng.chuckjokes.ui.favorites.FavoritesActivity;
 import com.example.haihesheng.chuckjokes.ui.main.MainActivity;
+
+import java.util.List;
 
 import javax.inject.Inject;
 
@@ -26,10 +32,13 @@ import javax.inject.Inject;
  * Created by Hai on 2018-04-03.
  */
 
-public class DetailsActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener , DetailsScreen{
+public class DetailsActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener, DetailsScreen {
 
     @Inject
     DetailsPresenter detailsPresenter;
+
+    TextView textView;
+    FloatingActionButton fab;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,15 +47,14 @@ public class DetailsActivity extends AppCompatActivity implements NavigationView
         setContentView(R.layout.activity_details);
 
 
-
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
+        fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Snackbar.make(view, "Hello Details", Snackbar.LENGTH_LONG).setAction("Action", null).show();
+                detailsPresenter.toggleSaveJoke();
             }
         });
 
@@ -57,6 +65,27 @@ public class DetailsActivity extends AppCompatActivity implements NavigationView
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
+
+
+
+        Button previousBtn = (Button) findViewById(R.id.PreviousBtn);
+        previousBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                detailsPresenter.fetchPreviousJoke();
+            }
+        });
+
+        Button nextBtn = (Button) findViewById(R.id.NextBtn);
+        nextBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                detailsPresenter.fetchNextJoke();
+            }
+        });
+
+        textView = (TextView) findViewById(R.id.JokeValue);
+        detailsPresenter.Initialize(getIntent().getStringExtra(MainActivity.CATEGORY_KEY));
 
     }
 
@@ -115,6 +144,7 @@ public class DetailsActivity extends AppCompatActivity implements NavigationView
     protected void onStart() {
         super.onStart();
         detailsPresenter.attachScreen(this);
+        detailsPresenter.fetchNextJoke();
     }
 
     @Override
@@ -122,4 +152,24 @@ public class DetailsActivity extends AppCompatActivity implements NavigationView
         super.onStop();
         detailsPresenter.detachScreen();
     }
+
+    @Override
+    public void showJoke(final JokeWrapper jokeWrapper) {
+        if(jokeWrapper != null && jokeWrapper.getJoke() != null){
+            Log.d("DetailsActiviy", "showJoke: " + jokeWrapper.getJoke().getValue());
+            runOnUiThread(new Runnable() {
+                @Override
+                public void run() {
+                    textView.setText(jokeWrapper.getJoke().getValue());
+                    if(jokeWrapper.isFavorited()){
+                        fab.setImageDrawable(getResources().getDrawable(R.drawable.ic_favorite_white_24px));
+                    }else{
+                        fab.setImageDrawable(getResources().getDrawable(R.drawable.ic_favorite_border_white_24px));
+                    }
+                }
+            });
+
+        }
+    }
+
 }

@@ -10,13 +10,19 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Button;
+import android.widget.TextView;
 
 import com.example.haihesheng.chuckjokes.JokesApplication;
 import com.example.haihesheng.chuckjokes.R;
+import com.example.haihesheng.chuckjokes.model.Joke;
 import com.example.haihesheng.chuckjokes.ui.main.MainActivity;
+
+import java.util.List;
 
 import javax.inject.Inject;
 
@@ -27,6 +33,9 @@ import javax.inject.Inject;
 public class FavoritesActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener ,FavoritesScreen {
     @Inject
     FavoritesPresenter favoritesPresenter;
+
+    TextView textView;
+    FloatingActionButton fab;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,13 +48,16 @@ public class FavoritesActivity extends AppCompatActivity implements NavigationVi
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
+        fab = (FloatingActionButton) findViewById(R.id.fab);
+        fab.setImageDrawable(getResources().getDrawable(R.drawable.ic_delete_white_24px));
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Snackbar.make(view, "Hello Favorites", Snackbar.LENGTH_LONG).setAction("Action", null).show();
+                favoritesPresenter.deleteJoke();
             }
         });
+
+        textView = (TextView) findViewById(R.id.JokeValue);
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
@@ -55,6 +67,24 @@ public class FavoritesActivity extends AppCompatActivity implements NavigationVi
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
 
+        Button previousBtn = (Button) findViewById(R.id.PreviousBtn);
+        previousBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                favoritesPresenter.showPreviousJoke();
+            }
+        });
+
+        Button nextBtn = (Button) findViewById(R.id.NextBtn);
+        nextBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                favoritesPresenter.showNextJoke();
+            }
+        });
+
+        favoritesPresenter.Initialize();
+        //
     }
 
     @Override
@@ -111,11 +141,25 @@ public class FavoritesActivity extends AppCompatActivity implements NavigationVi
     protected void onStart() {
         super.onStart();
         favoritesPresenter.attachScreen(this);
+        favoritesPresenter.showNextJoke();
     }
 
     @Override
     protected void onStop() {
         super.onStop();
         favoritesPresenter.detachScreen();
+    }
+
+    @Override
+    public void showJoke(final Joke joke) {
+        if(joke != null){
+            runOnUiThread(new Runnable() {
+                @Override
+                public void run() {
+                    textView.setText(joke.getValue());
+                }
+            });
+
+        }
     }
 }

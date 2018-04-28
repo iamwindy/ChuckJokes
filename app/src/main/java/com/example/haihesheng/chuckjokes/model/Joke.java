@@ -1,10 +1,12 @@
 package com.example.haihesheng.chuckjokes.model;
 
+import com.google.gson.FieldNamingStrategy;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 import com.orm.SugarRecord;
 
 import java.io.Serializable;
+import java.lang.reflect.Field;
 
 /**
  * Created by Hai on 2018-04-04.
@@ -43,8 +45,8 @@ public class Joke extends SugarRecord<Joke> implements Serializable {
         return jokeId;
     }
 
-    public void setJoke(String id) {
-        this.jokeId = id;
+    public void setJokeId(String jokeId) {
+        this.jokeId = jokeId;
     }
 
     public String getIconUrl() {
@@ -71,3 +73,4 @@ public class Joke extends SugarRecord<Joke> implements Serializable {
         this.value = value;
     }
 }
+
