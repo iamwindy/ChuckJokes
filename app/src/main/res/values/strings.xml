@@ -11,4 +11,7 @@
     <string name="hello_favorites">Hello Favorites!</string>
     <string name="hello_details">Hello Details!</string>
     <string name="details">Details</string>
+    <string name="next">Next</string>
+    <string name="previous">Previous</string>
+    <string name="textview_sample">TextView Sample</string>
 </resources>

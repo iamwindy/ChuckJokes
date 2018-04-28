@@ -14,13 +14,17 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.Toast;
+import android.widget.Button;
+import android.widget.TextView;
 
 import com.example.haihesheng.chuckjokes.JokesApplication;
 import com.example.haihesheng.chuckjokes.R;
 import com.example.haihesheng.chuckjokes.model.Joke;
+import com.example.haihesheng.chuckjokes.model.JokeWrapper;
 import com.example.haihesheng.chuckjokes.ui.favorites.FavoritesActivity;
 import com.example.haihesheng.chuckjokes.ui.main.MainActivity;
+
+import java.util.List;
 
 import javax.inject.Inject;
 
@@ -33,7 +37,8 @@ public class DetailsActivity extends AppCompatActivity implements NavigationView
     @Inject
     DetailsPresenter detailsPresenter;
 
-    private String selectedCategory;
+    TextView textView;
+    FloatingActionButton fab;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,11 +50,11 @@ public class DetailsActivity extends AppCompatActivity implements NavigationView
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
+        fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Snackbar.make(view, "Hello Details", Snackbar.LENGTH_LONG).setAction("Action", null).show();
+                detailsPresenter.toggleSaveJoke();
             }
         });
 
@@ -61,10 +66,25 @@ public class DetailsActivity extends AppCompatActivity implements NavigationView
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
 
-        this.selectedCategory = getIntent().getStringExtra(MainActivity.CATEGORY_KEY);
-        Log.d("selectedCategory", "onCreate: " + selectedCategory);
-        detailsPresenter.getJoke(selectedCategory);
+        Button previousBtn = (Button) findViewById(R.id.PreviousBtn);
+        detailsPresenter.Initialize(getIntent().getStringExtra(MainActivity.CATEGORY_KEY));
+        previousBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                detailsPresenter.fetchPreviousJoke();
+            }
+        });
 
+        Button nextBtn = (Button) findViewById(R.id.NextBtn);
+        nextBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                detailsPresenter.fetchNextJoke();
+            }
+        });
+
+        textView = (TextView) findViewById(R.id.JokeValue);
+        detailsPresenter.fetchNextJoke();
     }
 
     @Override
@@ -131,7 +151,22 @@ public class DetailsActivity extends AppCompatActivity implements NavigationView
     }
 
     @Override
-    public void showJoke(Joke joke) {
-        Log.d("DetailsActiviy", "showJoke: " + joke.getValue());
+    public void showJoke(final JokeWrapper jokeWrapper) {
+        if(jokeWrapper != null && jokeWrapper.getJoke() != null){
+            Log.d("DetailsActiviy", "showJoke: " + jokeWrapper.getJoke().getValue());
+            runOnUiThread(new Runnable() {
+                @Override
+                public void run() {
+                    textView.setText(jokeWrapper.getJoke().getValue());
+                    if(jokeWrapper.isFavorited()){
+                        fab.setImageDrawable(getResources().getDrawable(R.drawable.ic_favorite_black_24px));
+                    }else{
+                        fab.setImageDrawable(getResources().getDrawable(R.drawable.ic_favorite_border_black_24px));
+                    }
+                }
+            });
+
+        }
     }
+
 }

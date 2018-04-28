@@ -38,8 +38,8 @@
             android:layout_marginTop="12dp"
             android:layout_marginLeft="8dp"
             android:layout_marginRight="8dp"
-            android:textSize="16sp"
-            android:text="TextView Sample"
+            android:textSize="8sp"
+            android:text="@string/textview_sample"
             android:textAlignment="center"
             android:gravity="center"
             android:background="@android:color/holo_blue_light"
@@ -49,7 +49,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:gravity="center"
-            android:text="Previous"
+            android:text="@string/previous"
             app:layout_constraintRight_toLeftOf="@id/NextBtn"
             app:layout_constraintBottom_toBottomOf="parent"
             />
@@ -59,7 +59,7 @@
             android:layout_height="wrap_content"
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintBottom_toBottomOf="parent"
-            android:text="Next"
+            android:text="@string/next"
             />
     </android.support.constraint.ConstraintLayout>
 
