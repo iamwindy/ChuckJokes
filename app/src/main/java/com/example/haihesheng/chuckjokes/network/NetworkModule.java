@@ -1,8 +1,6 @@
 package com.example.haihesheng.chuckjokes.network;
 
-import android.content.Context;
-
-import com.example.haihesheng.chuckjokes.JokesApplication;
+import com.example.haihesheng.chuckjokes.Converter.CustomGsonConverter;
 
 import javax.inject.Singleton;
 
@@ -23,7 +21,8 @@ public class NetworkModule {
     public Retrofit provideRetrofit() {
         return new Retrofit.Builder()
                 .baseUrl(NetworkConfig.ENDPOINT_ADDRESS)
-                .addConverterFactory(GsonConverterFactory.create())
+
+                .addConverterFactory(GsonConverterFactory.create(CustomGsonConverter.getCustomGsonConverter()))
                 .build();
     }
 

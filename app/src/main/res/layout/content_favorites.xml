@@ -4,17 +4,61 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+
+    android:padding="16dp"
+    android:layout_margin="16dp"
+    android:gravity="center"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
     tools:context="com.example.haihesheng.chuckjokes.ui.favorites.FavoritesActivity"
+
     tools:showIn="@layout/app_bar_main">
 
-    <TextView
-        android:layout_width="wrap_content"
+    <android.support.constraint.ConstraintLayout
+
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/hello_favorites"
+        android:minHeight="160dp"
+        android:orientation="vertical"
+        android:padding="8dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        >
+        <TextView
+            android:id="@+id/JokeValue"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            android:layout_marginTop="12dp"
+            android:layout_marginLeft="8dp"
+            android:layout_marginRight="8dp"
+            android:textSize="8sp"
+            android:text="@string/textview_sample"
+            android:textAlignment="center"
+            android:gravity="center"
+            />
+        <Button
+            android:id="@+id/PreviousBtn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:text="@string/previous"
+            app:layout_constraintRight_toLeftOf="@id/NextBtn"
+            app:layout_constraintBottom_toBottomOf="parent"
+            />
+        <Button
+            android:id="@+id/NextBtn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            android:text="@string/next"
+            />
+    </android.support.constraint.ConstraintLayout>
+
+
 
 </android.support.constraint.ConstraintLayout>

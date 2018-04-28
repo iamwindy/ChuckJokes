@@ -2,7 +2,9 @@ package com.example.haihesheng.chuckjokes.repository;
 
 import com.example.haihesheng.chuckjokes.JokesApplication;
 import com.example.haihesheng.chuckjokes.model.Joke;
+import com.orm.query.Select;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -14,7 +16,7 @@ public class JokesRepository {
         JokesApplication.injector.inject(this);
     }
     public List<Joke> GetJokes(){
-        return Joke.listAll(Joke.class);
+        return Select.from(Joke.class).orderBy("ID Desc").list();
     }
 
     public Joke getJoke(long id){
@@ -29,6 +31,15 @@ public class JokesRepository {
     public void deleteJoke(long id){
         Joke joke = Joke.findById(Joke.class,id);
         joke.delete();
+    }
+
+    public Joke findJokeByJokeId(String jokeId){
+        List<Joke> jokes = Joke.find(Joke.class,"JOKE_ID = ?", jokeId);
+        if(jokes.size() > 0){
+            return jokes.get(0);
+        }else{
+            return null;
+        }
     }
 
 }

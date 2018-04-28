@@ -11,7 +11,7 @@ import com.example.haihesheng.chuckjokes.ui.UIModule;
  * Created by Hai on 2018-04-02.
  */
 
-public class JokesApplication extends Application {
+public class JokesApplication extends com.orm.SugarApp {
     public static ApplicationComponent injector;
 
     @Override
