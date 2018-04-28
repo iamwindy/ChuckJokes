@@ -45,8 +45,8 @@ public class Joke extends SugarRecord<Joke> implements Serializable {
         return jokeId;
     }
 
-    public void setJoke(String id) {
-        this.jokeId = id;
+    public void setJokeId(String jokeId) {
+        this.jokeId = jokeId;
     }
 
     public String getIconUrl() {

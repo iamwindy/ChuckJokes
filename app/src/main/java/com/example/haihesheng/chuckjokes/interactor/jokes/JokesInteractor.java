@@ -73,4 +73,8 @@ public class JokesInteractor {
     public Joke getJoke(long id){
         return jokesRepository.getJoke(id);
     }
+
+    public Joke findJokeByJokeId(String jokeId){
+        return jokesRepository.findJokeByJokeId(jokeId);
+    }
 }

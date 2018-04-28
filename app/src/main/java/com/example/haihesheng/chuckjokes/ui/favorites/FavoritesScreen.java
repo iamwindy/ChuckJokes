@@ -1,6 +1,7 @@
 package com.example.haihesheng.chuckjokes.ui.favorites;
 
 import com.example.haihesheng.chuckjokes.model.Joke;
+import com.example.haihesheng.chuckjokes.model.JokeWrapper;
 
 import java.util.List;
 
@@ -9,5 +10,5 @@ import java.util.List;
  */
 
 public interface FavoritesScreen {
-    void showJokes(List<Joke> joke);
+    void showJoke(Joke joke);
 }

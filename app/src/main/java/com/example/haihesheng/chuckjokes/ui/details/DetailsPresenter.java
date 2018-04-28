@@ -30,7 +30,6 @@ public class DetailsPresenter extends Presenter<DetailsScreen> {
 
     private int currentJokeIndex;
 
-    private boolean isFavorite;
 
     private String category;
 
@@ -42,7 +41,6 @@ public class DetailsPresenter extends Presenter<DetailsScreen> {
         currentJokes = new ArrayList<JokeWrapper>();
         currentJokeIndex = -1;
         this.category = category;
-        this.isFavorite = this.category == "favorites";
     }
 
     @Override
@@ -66,9 +64,15 @@ public class DetailsPresenter extends Presenter<DetailsScreen> {
                     public void run() {
                         Log.d("networkexecutor", "fetchNextJoke: getting next one");
                     Joke joke = jokesInteractor.getRandomJoke(category);
+                    Joke dbJokeFound = jokesInteractor.findJokeByJokeId(joke.getJokeId());
                     JokeWrapper wrapperJoke = new JokeWrapper();
-                    wrapperJoke.setFavorited(false);
-                    wrapperJoke.setJoke(joke);
+                    if(dbJokeFound != null){
+                        wrapperJoke.setFavorited(true);
+                        wrapperJoke.setJoke(dbJokeFound);
+                    }else{
+                        wrapperJoke.setFavorited(false);
+                        wrapperJoke.setJoke(joke);
+                    }
                     currentJokes.add(wrapperJoke);
                     currentJokeIndex++;
                     screen.showJoke(currentJokes.get(currentJokeIndex));
@@ -89,7 +93,8 @@ public class DetailsPresenter extends Presenter<DetailsScreen> {
             currentJokeIndex--;
             screen.showJoke(currentJokes.get(currentJokeIndex));
         }else{
-            screen.showJoke(currentJokes.get(0));
+            currentJokeIndex = 0;
+            screen.showJoke(currentJokes.get(currentJokeIndex));
         }
     }
 
@@ -97,16 +102,25 @@ public class DetailsPresenter extends Presenter<DetailsScreen> {
         if(currentJokes.get(currentJokeIndex).isFavorited()){
             JokeWrapper jokeWrapper =currentJokes.get(currentJokeIndex);
             jokeWrapper.setFavorited(false);
-            long id = jokeWrapper.getJoke().getId();
-            if(id > 0){
-                jokesInteractor.deleteJoke(id);
+            String jokeId = jokeWrapper.getJoke().getJokeId();
+            Joke foundJoke = jokesInteractor.findJokeByJokeId(jokeId);
+            if(foundJoke != null){
+                foundJoke.delete();
             }
         }else{
-            long id = jokesInteractor.saveJoke(currentJokes.get(currentJokeIndex).getJoke());
+            JokeWrapper jokeWrapper =currentJokes.get(currentJokeIndex);
+            String jokeId = jokeWrapper.getJoke().getJokeId();
+            Joke foundJoke = jokesInteractor.findJokeByJokeId(jokeId);
             JokeWrapper wrapperJoke = new JokeWrapper();
+            if(foundJoke != null){
+                wrapperJoke.setJoke(foundJoke);
+            }else{
+                long id = jokesInteractor.saveJoke(currentJokes.get(currentJokeIndex).getJoke());
+                wrapperJoke.setJoke(jokesInteractor.getJoke(id));
+            }
             wrapperJoke.setFavorited(true);
-            wrapperJoke.setJoke(jokesInteractor.getJoke(id));
             currentJokes.set(currentJokeIndex,wrapperJoke);
+
         }
         screen.showJoke(currentJokes.get(currentJokeIndex));
     }

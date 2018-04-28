@@ -40,6 +40,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     private List<String> categories;
 
     public static final String CATEGORY_KEY = "CATEGORY_KEY";
+    public static final String FAVORITES_KEY = "favorites";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -51,14 +52,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
-            }
-        });
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
@@ -73,10 +66,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
         mainPresenter.refreshCategories();
         categories = new ArrayList<String>();
-        List<String> test = new ArrayList<String>();
-        test.add("asd1");
-        test.add("asd2");
-
         adapter = new ArrayAdapter<String>(this,
                 android.R.layout.simple_list_item_1, categories);
 
@@ -85,9 +74,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 new AdapterView.OnItemClickListener() {
                     @Override
                     public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                        Intent intent = new Intent(MainActivity.this, DetailsActivity.class);
                         String selectedCategory = categories.get(i);
-                        Log.d("onItemCickListener", "onItemClick: " + selectedCategory);
+                        Intent intent = new Intent(MainActivity.this, DetailsActivity.class);
                         intent.putExtra(CATEGORY_KEY,selectedCategory);
                         startActivity(intent);
                     }
@@ -166,7 +154,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         if (categories != null) {
             Log.d("categories", "onCreate: " + categories.size());
             this.categories.clear();
-            this.categories.add("favorites");
             this.categories.addAll(categories);
             listView.post(new Runnable() {
                 @Override

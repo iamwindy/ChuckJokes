@@ -27,7 +27,7 @@ public interface ApplicationComponent {
     void inject(MainActivity mainActivity);
     void inject(MainPresenter mainPresenter);
     void inject(DetailsActivity detailsActivity);
-    void inject(DetailsPresenter presenter);
+    void inject(DetailsPresenter detailsPresenter);
     void inject(FavoritesActivity favoritesActivity);
     void inject(FavoritesPresenter favoritesPresenter);
     void inject(JokesInteractor jokesInteractor);

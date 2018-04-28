@@ -66,8 +66,9 @@ public class DetailsActivity extends AppCompatActivity implements NavigationView
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
 
+
+
         Button previousBtn = (Button) findViewById(R.id.PreviousBtn);
-        detailsPresenter.Initialize(getIntent().getStringExtra(MainActivity.CATEGORY_KEY));
         previousBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -84,7 +85,8 @@ public class DetailsActivity extends AppCompatActivity implements NavigationView
         });
 
         textView = (TextView) findViewById(R.id.JokeValue);
-        detailsPresenter.fetchNextJoke();
+        detailsPresenter.Initialize(getIntent().getStringExtra(MainActivity.CATEGORY_KEY));
+
     }
 
     @Override
@@ -142,6 +144,7 @@ public class DetailsActivity extends AppCompatActivity implements NavigationView
     protected void onStart() {
         super.onStart();
         detailsPresenter.attachScreen(this);
+        detailsPresenter.fetchNextJoke();
     }
 
     @Override

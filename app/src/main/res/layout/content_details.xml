@@ -9,8 +9,6 @@
     android:layout_margin="16dp"
     android:gravity="center"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
-
-    android:background="@android:color/holo_red_light"
     tools:context="com.example.haihesheng.chuckjokes.ui.details.DetailsActivity"
 
     tools:showIn="@layout/app_bar_main">
@@ -21,7 +19,6 @@
         android:layout_height="wrap_content"
         android:minHeight="160dp"
         android:orientation="vertical"
-        android:background="@android:color/holo_green_light"
         android:padding="8dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
@@ -42,7 +39,6 @@
             android:text="@string/textview_sample"
             android:textAlignment="center"
             android:gravity="center"
-            android:background="@android:color/holo_blue_light"
             />
         <Button
             android:id="@+id/PreviousBtn"
