@@ -30,7 +30,7 @@ public class UIModuleTest {
         this.context = context;
     }
 
-    @Test
+    @Provides
     public Context provideContext() {
         return context;
     }

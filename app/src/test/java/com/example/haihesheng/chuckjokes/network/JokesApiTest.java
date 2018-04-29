@@ -70,7 +70,7 @@ public class JokesApiTest implements JokesApi {
         return call;
     }
 
-    @Test
+    @Override
     public Call<List<String>> getCategories() {
         final List<String> categories = new ArrayList<String>();
         categories.add("category1");
