@@ -27,6 +27,4 @@ import static org.junit.Assert.*;
 @Singleton
 @Component(modules = {NetworkModuleTest.class, UIModuleTest.class, InteractorModule.class, RepositoryModuleTest.class})
 public interface ApplicationComponentTest extends ApplicationComponent{
-    void inject(JokesApiTest jokesApiTest);
-    void inject(JokesRepositoryTest jokesRepository);
 }

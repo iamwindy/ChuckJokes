@@ -16,6 +16,8 @@ import org.junit.runner.RunWith;
 import org.mockito.ArgumentCaptor;
 import org.robolectric.annotation.Config;
 
+import java.util.jar.Manifest;
+
 import static com.example.haihesheng.chuckjokes.TestHelper.setTestInjector;
 import static junit.framework.Assert.assertTrue;
 import static org.mockito.Matchers.refEq;
@@ -26,7 +28,7 @@ import static org.mockito.Mockito.verify;
  * Created by Hai on 2018-04-30.
  */
 @RunWith(RoboElectricDaggerTestRunner.class)
-@Config(constants = BuildConfig.class, sdk = 26)
+@Config(constants = BuildConfig.class, sdk = 26,manifest = Config.NONE)
 public class DetailsTestWithDBInitialized {
     private DetailsPresenter detailsPresenter;
     private DetailsScreen detailsScreen;

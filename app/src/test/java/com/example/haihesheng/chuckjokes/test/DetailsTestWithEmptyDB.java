@@ -29,7 +29,7 @@ import static org.mockito.Mockito.verify;
  * Created by Hai on 2018-04-30.
  */
 @RunWith(RoboElectricDaggerTestRunner.class)
-@Config(constants = BuildConfig.class, sdk = 26)
+@Config(constants = BuildConfig.class, sdk = 26,manifest = Config.NONE)
 public class DetailsTestWithEmptyDB {
 
     private DetailsPresenter detailsPresenter;
