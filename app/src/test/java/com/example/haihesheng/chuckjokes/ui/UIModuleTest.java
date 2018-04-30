@@ -56,7 +56,7 @@ public class UIModuleTest {
     @Provides
     @Singleton
     @Network
-    public Executor provideNetworkExecutor() throws Exception {
+    public Executor provideNetworkExecutor() {
         return new UIExecutor();
     }
 
