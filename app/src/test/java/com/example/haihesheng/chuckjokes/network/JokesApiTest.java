@@ -23,18 +23,40 @@ import static org.junit.Assert.*;
  */
 public class JokesApiTest implements JokesApi {
 
+    public static List<Joke> jokes = new ArrayList<>();
+    public static int JokeIndex = 0;
+
+    public static List<String> categories = new ArrayList<>();
+    public static Joke joke1 = new Joke("joke1","https://assets.chucknorris.host/img/avatar/chuck-norris.png","https://api.chucknorris.io/jokes/e82_skt1twatoavnakhafg","joke1");
+    public static Joke joke2 = new Joke("joke2","https://assets.chucknorris.host/img/avatar/chuck-norris.png","https://api.chucknorris.io/jokes/e82_skt1twatoavnakhafg","joke2");
+    public static Joke joke3 = new Joke("joke3","https://assets.chucknorris.host/img/avatar/chuck-norris.png","https://api.chucknorris.io/jokes/e82_skt1twatoavnakhafg","joke3");
+    public static Joke joke4 = new Joke("joke4","https://assets.chucknorris.host/img/avatar/chuck-norris.png","https://api.chucknorris.io/jokes/e82_skt1twatoavnakhafg","joke4");
+    public static Joke joke5 = new Joke("joke5","https://assets.chucknorris.host/img/avatar/chuck-norris.png","https://api.chucknorris.io/jokes/e82_skt1twatoavnakhafg","joke5");
+    public static void seedJokes(){
+        jokes = new ArrayList<Joke>();
+        JokeIndex = 0;
+        jokes.add(joke1);
+        jokes.add(joke2);
+        jokes.add(joke3);
+        jokes.add(joke4);
+        jokes.add(joke5);
+    }
+
+    public static void emptyJokes(){
+        jokes = new ArrayList<Joke>();
+        JokeIndex = 0;
+    }
 
     @Override
     public Call<Joke> getJoke(@Query("category") String category) {
-        final Joke joke = new Joke();
-        joke.setValue("Chuck Norris did not \"lose\" his virginity, he stalked it and then destroyed it with extreme prejudice.");
-        joke.setUrl("https://api.chucknorris.io/jokes/e82_skt1twatoavnakhafg");
-        joke.setJokeId("e82_skt1twatoavnakhafg");
-        joke.setIconUrl("https://assets.chucknorris.host/img/avatar/chuck-norris.png");
         Call<Joke> call = new Call<Joke>() {
             @Override
             public Response<Joke> execute() throws IOException {
-                return Response.success(joke);
+                Response<Joke> response = Response.success(jokes.get(JokeIndex));
+                if(JokeIndex + 1 < jokes.size()){
+                    JokeIndex++;
+                }
+                return response;
             }
 
             @Override
@@ -70,14 +92,21 @@ public class JokesApiTest implements JokesApi {
         return call;
     }
 
-    @Override
-    public Call<List<String>> getCategories() {
-        final List<String> categories = new ArrayList<String>();
+    public static void seedCategories(){
+        categories = new ArrayList<String>();
         categories.add("category1");
         categories.add("category2");
         categories.add("category3");
         categories.add("category4");
         categories.add("category5");
+    }
+
+    public static void emptyCategories(){
+        categories = new ArrayList<String>();
+    }
+
+    @Override
+    public Call<List<String>> getCategories() {
 
         Call<List<String>> call = new Call<List<String>>() {
 

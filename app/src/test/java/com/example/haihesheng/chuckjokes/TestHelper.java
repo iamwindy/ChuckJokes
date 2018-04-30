@@ -1,7 +1,6 @@
 package com.example.haihesheng.chuckjokes;
 
 import com.example.haihesheng.chuckjokes.interactor.InteractorModule;
-import com.example.haihesheng.chuckjokes.interactor.InteractorModuleTest;
 import com.example.haihesheng.chuckjokes.network.NetworkModule;
 import com.example.haihesheng.chuckjokes.network.NetworkModuleTest;
 import com.example.haihesheng.chuckjokes.repository.RepositoryModule;
@@ -22,12 +21,10 @@ public class TestHelper {
 
     public static void setTestInjector() {
         ShadowLog.stream = System.out;
-        JokesApplication application = (JokesApplication) RuntimeEnvironment.application;
-        application.injector = DaggerApplicationComponentTest.builder()
-                .uIModuleTest(new UIModuleTest(application.getApplicationContext()))
+        JokesApplication.injector = DaggerApplicationComponentTest.builder()
+                .uIModuleTest(new UIModuleTest(RuntimeEnvironment.application.getApplicationContext()))
                 .repositoryModuleTest(new RepositoryModuleTest())
                 .networkModuleTest(new NetworkModuleTest())
-                .interactorModuleTest(new InteractorModuleTest())
                 .build();
 
     }

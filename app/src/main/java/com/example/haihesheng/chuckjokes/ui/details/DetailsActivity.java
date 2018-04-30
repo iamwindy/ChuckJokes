@@ -4,7 +4,6 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.NavigationView;
-import android.support.design.widget.Snackbar;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
@@ -19,12 +18,9 @@ import android.widget.TextView;
 
 import com.example.haihesheng.chuckjokes.JokesApplication;
 import com.example.haihesheng.chuckjokes.R;
-import com.example.haihesheng.chuckjokes.model.Joke;
 import com.example.haihesheng.chuckjokes.model.JokeWrapper;
 import com.example.haihesheng.chuckjokes.ui.favorites.FavoritesActivity;
 import com.example.haihesheng.chuckjokes.ui.main.MainActivity;
-
-import java.util.List;
 
 import javax.inject.Inject;
 
@@ -85,7 +81,7 @@ public class DetailsActivity extends AppCompatActivity implements NavigationView
         });
 
         textView = (TextView) findViewById(R.id.JokeValue);
-        detailsPresenter.Initialize(getIntent().getStringExtra(MainActivity.CATEGORY_KEY));
+        detailsPresenter.initialize(getIntent().getStringExtra(MainActivity.CATEGORY_KEY));
 
     }
 

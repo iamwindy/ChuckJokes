@@ -1,9 +1,11 @@
 package com.example.haihesheng.chuckjokes;
 
-import com.example.haihesheng.chuckjokes.interactor.InteractorModuleTest;
+import com.example.haihesheng.chuckjokes.interactor.InteractorModule;
 import com.example.haihesheng.chuckjokes.interactor.jokes.JokesInteractor;
+import com.example.haihesheng.chuckjokes.network.JokesApiTest;
 import com.example.haihesheng.chuckjokes.network.NetworkModuleTest;
 import com.example.haihesheng.chuckjokes.repository.JokesRepository;
+import com.example.haihesheng.chuckjokes.repository.JokesRepositoryTest;
 import com.example.haihesheng.chuckjokes.repository.RepositoryModuleTest;
 import com.example.haihesheng.chuckjokes.ui.UIModuleTest;
 import com.example.haihesheng.chuckjokes.ui.details.DetailsActivity;
@@ -23,6 +25,8 @@ import static org.junit.Assert.*;
  * Created by Hai on 2018-04-29.
  */
 @Singleton
-@Component(modules = {NetworkModuleTest.class, UIModuleTest.class, InteractorModuleTest.class, RepositoryModuleTest.class})
+@Component(modules = {NetworkModuleTest.class, UIModuleTest.class, InteractorModule.class, RepositoryModuleTest.class})
 public interface ApplicationComponentTest extends ApplicationComponent{
+    void inject(JokesApiTest jokesApiTest);
+    void inject(JokesRepositoryTest jokesRepository);
 }
