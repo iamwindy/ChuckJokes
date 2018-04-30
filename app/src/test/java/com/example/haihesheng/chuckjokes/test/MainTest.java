@@ -10,6 +10,7 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.robolectric.RobolectricTestRunner;
 import org.robolectric.annotation.Config;
 
 import java.util.ArrayList;
@@ -25,8 +26,8 @@ import static org.mockito.Mockito.verify;
  * Created by Hai on 2018-04-30.
  */
 
-@RunWith(RoboElectricDaggerTestRunner.class)
-@Config(constants = BuildConfig.class, sdk = 26,manifest = Config.NONE)
+@RunWith(RobolectricTestRunner.class)
+@Config(constants = BuildConfig.class, sdk = 26)
 public class MainTest {
 
     private MainPresenter mainPresenter;

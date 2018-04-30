@@ -14,12 +14,14 @@ import org.robolectric.util.ReflectionHelpers;
 
 public class RoboElectricDaggerTestRunner extends RobolectricTestRunner {
 
-    private static final String BUILD_OUTPUT = "build/intermediates";
+    private static final String BUILD_OUTPUT = "app/build/intermediates";
 
     public RoboElectricDaggerTestRunner(Class<?> klass) throws InitializationError {
         super(klass);
     }
 
+
+/*
     @Override
     protected AndroidManifest getAppManifest(Config config) {
         if (config.constants() == Void.class) {
@@ -49,12 +51,15 @@ public class RoboElectricDaggerTestRunner extends RobolectricTestRunner {
             manifest = FileFsFile.from(BUILD_OUTPUT, "bundles", flavor, type, "AndroidManifest.xml");
         }
 
+
+
         Logger.debug("Robolectric assets directory: " + assets.getPath());
         Logger.debug("   Robolectric res directory: " + res.getPath());
         Logger.debug("   Robolectric manifest path: " + manifest.getPath());
         Logger.debug("    Robolectric package name: " + applicationId);
         return new AndroidManifest(manifest, res, assets, applicationId);
     }
+    */
 
     private String getType(Config config) {
         try {

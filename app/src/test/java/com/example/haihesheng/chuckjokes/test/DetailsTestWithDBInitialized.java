@@ -1,5 +1,7 @@
 package com.example.haihesheng.chuckjokes.test;
 
+import android.os.Build;
+
 import com.example.haihesheng.chuckjokes.BuildConfig;
 import com.example.haihesheng.chuckjokes.model.Joke;
 import com.example.haihesheng.chuckjokes.model.JokeWrapper;
@@ -14,6 +16,7 @@ import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.ArgumentCaptor;
+import org.robolectric.RobolectricTestRunner;
 import org.robolectric.annotation.Config;
 
 import java.util.jar.Manifest;
@@ -27,8 +30,8 @@ import static org.mockito.Mockito.verify;
 /**
  * Created by Hai on 2018-04-30.
  */
-@RunWith(RoboElectricDaggerTestRunner.class)
-@Config(constants = BuildConfig.class, sdk = 26,manifest = Config.NONE)
+@RunWith(RobolectricTestRunner.class)
+@Config(constants = BuildConfig.class, sdk = 26)
 public class DetailsTestWithDBInitialized {
     private DetailsPresenter detailsPresenter;
     private DetailsScreen detailsScreen;
@@ -36,6 +39,7 @@ public class DetailsTestWithDBInitialized {
 
     @Before
     public void setup() throws Exception {
+
         setTestInjector();
         detailsScreen = mock(DetailsScreen.class);
         detailsPresenter = new DetailsPresenter();
