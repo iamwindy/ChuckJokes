@@ -37,7 +37,7 @@ public class DetailsPresenter extends Presenter<DetailsScreen> {
         JokesApplication.injector.inject(this);
     }
 
-    public void Initialize(String category){
+    public void initialize(String category){
         currentJokes = new ArrayList<JokeWrapper>();
         currentJokeIndex = -1;
         this.category = category;

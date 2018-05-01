@@ -29,7 +29,7 @@ public class FavoritesPresenter extends Presenter<FavoritesScreen> {
     private int currentJokeIndex;
 
 
-    public void Initialize(){
+    public void initialize(){
         currentJokes = jokesInteractor.getJokes();
         currentJokeIndex = -1;
 

@@ -6,7 +6,7 @@ package com.example.haihesheng.chuckjokes.model;
 
 public class JokeWrapper {
     private Joke joke;
-    private boolean IsFavorited;
+    private boolean isFavorited;
 
 
     public Joke getJoke() {
@@ -18,10 +18,22 @@ public class JokeWrapper {
     }
 
     public boolean isFavorited() {
-        return IsFavorited;
+        return isFavorited;
     }
 
     public void setFavorited(boolean favorited) {
-        IsFavorited = favorited;
+        isFavorited = favorited;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (obj == null) {
+            return false;
+        }
+        if (!JokeWrapper.class.isAssignableFrom(obj.getClass())) {
+            return false;
+        }
+        final JokeWrapper jokeWrapper = (JokeWrapper) obj;
+        return jokeWrapper.getJoke().equals(getJoke()) && jokeWrapper.isFavorited() == isFavorited;
     }
 }
