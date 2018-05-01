@@ -1,7 +1,5 @@
 package com.example.haihesheng.chuckjokes.test;
 
-import android.os.Build;
-
 import com.example.haihesheng.chuckjokes.BuildConfig;
 import com.example.haihesheng.chuckjokes.model.Joke;
 import com.example.haihesheng.chuckjokes.model.JokeWrapper;
@@ -9,7 +7,6 @@ import com.example.haihesheng.chuckjokes.network.JokesApiTest;
 import com.example.haihesheng.chuckjokes.repository.JokesRepositoryTest;
 import com.example.haihesheng.chuckjokes.ui.details.DetailsPresenter;
 import com.example.haihesheng.chuckjokes.ui.details.DetailsScreen;
-import com.example.haihesheng.chuckjokes.utils.RoboElectricDaggerTestRunner;
 
 import org.junit.After;
 import org.junit.Before;
@@ -19,12 +16,10 @@ import org.mockito.ArgumentCaptor;
 import org.robolectric.RobolectricTestRunner;
 import org.robolectric.annotation.Config;
 
-import java.util.jar.Manifest;
-
 import static com.example.haihesheng.chuckjokes.TestHelper.setTestInjector;
 import static junit.framework.Assert.assertTrue;
-import static org.mockito.Matchers.refEq;
 import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 
 /**
@@ -44,20 +39,58 @@ public class DetailsTestWithDBInitialized {
         detailsScreen = mock(DetailsScreen.class);
         detailsPresenter = new DetailsPresenter();
         detailsPresenter.attachScreen(detailsScreen);
-        JokesApiTest.seedJokes();
+
         JokesRepositoryTest.seedJokes();
-        detailsPresenter.initialize("test");
+
     }
 
     @Test
-    public void testFetchFirstJokeOnNotEmptyDb() {
+    public void testFetchFirstJokeFoundOnNotEmptyDb() {
+        JokesApiTest.seedJokes(JokesApiTest.CategoryTypes.DB);
+        detailsPresenter.initialize(JokesApiTest.getStringFromCategory(JokesApiTest.CategoryTypes.DB));
+        detailsPresenter.fetchNextJoke();
         JokeWrapper jokeWrapper = new JokeWrapper();
         Joke joke = JokesRepositoryTest.joke1;
         jokeWrapper.setJoke(joke);
         jokeWrapper.setFavorited(true);
-        detailsPresenter.fetchNextJoke();
         verify(detailsScreen).showJoke(argument.capture());
         assertTrue(argument.getValue().equals(jokeWrapper));
+    }
+
+    @Test
+    public void testFetchFirstJokeNotFoundOnNotEmptyDb() {
+        JokesApiTest.seedJokes(JokesApiTest.CategoryTypes.New);
+        detailsPresenter.initialize(JokesApiTest.getStringFromCategory(JokesApiTest.CategoryTypes.New));
+        detailsPresenter.fetchNextJoke();
+        JokeWrapper jokeWrapper = new JokeWrapper();
+        Joke joke = JokesApiTest.newJoke1;
+        jokeWrapper.setJoke(joke);
+        jokeWrapper.setFavorited(false);
+        verify(detailsScreen).showJoke(argument.capture());
+        assertTrue(argument.getValue().equals(jokeWrapper));
+    }
+
+    @Test
+    public void testSaveFirstJokeOnNotEmptyDb() {
+        JokesApiTest.seedJokes(JokesApiTest.CategoryTypes.New);
+        detailsPresenter.initialize(JokesApiTest.getStringFromCategory(JokesApiTest.CategoryTypes.New));
+        detailsPresenter.fetchNextJoke();
+
+
+        verify(detailsScreen).showJoke(argument.capture());
+        JokeWrapper jokeWrapper = new JokeWrapper();
+        Joke joke = JokesApiTest.newJoke1;
+        jokeWrapper.setJoke(joke);
+        jokeWrapper.setFavorited(false);
+        assertTrue(argument.getValue().equals(jokeWrapper));
+
+        detailsPresenter.toggleSaveJoke();
+
+        jokeWrapper.setFavorited(true);
+
+        verify(detailsScreen, times(2)).showJoke(argument.capture());
+        assertTrue(argument.getValue().equals(jokeWrapper));
+
     }
 
 
