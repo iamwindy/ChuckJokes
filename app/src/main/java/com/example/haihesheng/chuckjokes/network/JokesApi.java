@@ -18,7 +18,4 @@ public interface JokesApi {
 
     @GET("categories")
     Call<List<String>> getCategories();
-
-    @GET("search")
-    Call<List<String>> searchJoke(@Query("query") String query);
 }

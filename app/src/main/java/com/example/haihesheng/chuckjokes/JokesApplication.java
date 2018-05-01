@@ -16,12 +16,29 @@ public class JokesApplication extends com.orm.SugarApp {
 
     @Override
     public void onCreate(){
-        super.onCreate();
+        if (callSuper()) {
+            super.onCreate();
+        }
         injector = DaggerApplicationComponent.builder()
                 .uIModule(new UIModule(this))
                 .repositoryModule(new RepositoryModule())
                 .networkModule(new NetworkModule())
                 .interactorModule(new InteractorModule())
                 .build();
+    }
+
+
+    @Override
+    public void onTerminate() {
+        if (callSuperFalse()) {
+            super.onTerminate();
+        }
+    }
+
+    protected boolean callSuper() {
+        return true; // Super is executed by default
+    }
+    protected boolean callSuperFalse() {
+        return false; // Super is executed by default
     }
 }
