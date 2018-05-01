@@ -30,12 +30,15 @@ public class JokesApplication extends com.orm.SugarApp {
 
     @Override
     public void onTerminate() {
-        if (callSuper()) {
-            //super.onTerminate();
+        if (callSuperFalse()) {
+            super.onTerminate();
         }
     }
 
     protected boolean callSuper() {
         return true; // Super is executed by default
+    }
+    protected boolean callSuperFalse() {
+        return false; // Super is executed by default
     }
 }
