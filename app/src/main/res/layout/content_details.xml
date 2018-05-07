@@ -19,7 +19,7 @@
         android:layout_height="wrap_content"
         android:minHeight="160dp"
         android:orientation="vertical"
-        android:padding="8dp"
+        android:padding="0dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
@@ -35,7 +35,7 @@
             android:layout_marginTop="12dp"
             android:layout_marginLeft="8dp"
             android:layout_marginRight="8dp"
-            android:textSize="8sp"
+            android:textSize="16sp"
             android:text="@string/textview_sample"
             android:textAlignment="center"
             android:gravity="center"
@@ -47,14 +47,14 @@
             android:gravity="center"
             android:text="@string/previous"
             app:layout_constraintRight_toLeftOf="@id/NextBtn"
-            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/JokeValue"
             />
         <Button
             android:id="@+id/NextBtn"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/JokeValue"
             android:text="@string/next"
             />
     </android.support.constraint.ConstraintLayout>
