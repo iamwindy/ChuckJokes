@@ -19,20 +19,27 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
+import com.crashlytics.android.Crashlytics;
 import com.example.haihesheng.chuckjokes.JokesApplication;
 import com.example.haihesheng.chuckjokes.R;
 import com.example.haihesheng.chuckjokes.ui.details.DetailsActivity;
 import com.example.haihesheng.chuckjokes.ui.favorites.FavoritesActivity;
+import com.google.android.gms.analytics.HitBuilders;
+import com.google.android.gms.analytics.Tracker;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import javax.inject.Inject;
 
+import io.fabric.sdk.android.Fabric;
+
 public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener, MainScreen {
 
     @Inject
     MainPresenter mainPresenter;
+
+    private Tracker mTracker;
 
     ListView listView;
     ArrayAdapter<String> adapter;
@@ -46,6 +53,11 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     protected void onCreate(Bundle savedInstanceState) {
         JokesApplication.injector.inject(this);
         super.onCreate(savedInstanceState);
+
+        Fabric.with(this, new Crashlytics());
+        JokesApplication application = (JokesApplication) getApplication();
+        mTracker = application.getDefaultTracker();
+
         setContentView(R.layout.activity_main);
 
 
@@ -94,6 +106,15 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         } else {
             super.onBackPressed();
         }
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+
+        String name = "Main";
+        mTracker.setScreenName("Image~" + name);
+        mTracker.send(new HitBuilders.ScreenViewBuilder().build());
     }
 
     @Override

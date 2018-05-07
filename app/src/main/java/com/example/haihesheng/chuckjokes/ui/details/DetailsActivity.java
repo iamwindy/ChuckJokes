@@ -21,6 +21,8 @@ import com.example.haihesheng.chuckjokes.R;
 import com.example.haihesheng.chuckjokes.model.JokeWrapper;
 import com.example.haihesheng.chuckjokes.ui.favorites.FavoritesActivity;
 import com.example.haihesheng.chuckjokes.ui.main.MainActivity;
+import com.google.android.gms.analytics.HitBuilders;
+import com.google.android.gms.analytics.Tracker;
 
 import javax.inject.Inject;
 
@@ -36,12 +38,16 @@ public class DetailsActivity extends AppCompatActivity implements NavigationView
     TextView textView;
     FloatingActionButton fab;
 
+    private Tracker mTracker;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         JokesApplication.injector.inject(this);
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_details);
 
+        JokesApplication application = (JokesApplication) getApplication();
+        mTracker = application.getDefaultTracker();
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -147,6 +153,15 @@ public class DetailsActivity extends AppCompatActivity implements NavigationView
     protected void onStop() {
         super.onStop();
         detailsPresenter.detachScreen();
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+
+        String name = "Details";
+        mTracker.setScreenName("Image~" + name);
+        mTracker.send(new HitBuilders.ScreenViewBuilder().build());
     }
 
     @Override
