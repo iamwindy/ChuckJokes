@@ -15,12 +15,17 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
+import com.crashlytics.android.Crashlytics;
 import com.example.haihesheng.chuckjokes.JokesApplication;
 import com.example.haihesheng.chuckjokes.R;
 import com.example.haihesheng.chuckjokes.model.Joke;
 import com.example.haihesheng.chuckjokes.ui.main.MainActivity;
+import com.google.android.gms.analytics.HitBuilders;
+import com.google.android.gms.analytics.Tracker;
 
 import javax.inject.Inject;
+
+import io.fabric.sdk.android.Fabric;
 
 /**
  * Created by Hai on 2018-04-04.
@@ -29,6 +34,8 @@ import javax.inject.Inject;
 public class FavoritesActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener ,FavoritesScreen {
     @Inject
     FavoritesPresenter favoritesPresenter;
+
+    private Tracker mTracker;
 
     TextView textView;
     FloatingActionButton fab;
@@ -39,7 +46,8 @@ public class FavoritesActivity extends AppCompatActivity implements NavigationVi
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_favorites);
 
-
+        JokesApplication application = (JokesApplication) getApplication();
+        mTracker = application.getDefaultTracker();
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -144,6 +152,15 @@ public class FavoritesActivity extends AppCompatActivity implements NavigationVi
     protected void onStop() {
         super.onStop();
         favoritesPresenter.detachScreen();
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+
+        String name = "Favorites";
+        mTracker.setScreenName("Image~" + name);
+        mTracker.send(new HitBuilders.ScreenViewBuilder().build());
     }
 
     @Override
